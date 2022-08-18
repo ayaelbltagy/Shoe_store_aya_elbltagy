@@ -8,18 +8,15 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.theshoestore.ShoeModel
 import com.example.theshoestore.R
 import com.example.theshoestore.databinding.BindShoeDetailsBinding
-import com.example.theshoestore.databinding.FragmentShoeDetailsViewBinding
 import com.example.theshoestore.viewModels.ShoeViewModel
 
 
 class ShoeDetailsFragment : Fragment() {
 
-   // private lateinit var binding: FragmentShoeDetailsViewBinding
     private lateinit var shoeViewModel: ShoeViewModel
-    private lateinit var binding : BindShoeDetailsBinding
+    private lateinit var binding: BindShoeDetailsBinding
 
 
     override fun onCreateView(
@@ -43,7 +40,10 @@ class ShoeDetailsFragment : Fragment() {
 
     private fun getDataFromView() {
 
-        if (binding.txtName.text.toString().equals("") || binding.txtSize.text.toString().equals("") || binding.txtCompany.text.toString().equals("") || binding.txtDesc.text.toString().equals("")) {
+        if (binding.txtName.text.toString().equals("") || binding.txtSize.text.toString()
+                .equals("") || binding.txtCompany.text.toString()
+                .equals("") || binding.txtDesc.text.toString().equals("")
+        ) {
 
             Toast.makeText(context, "Please Fill The Empty Fields", Toast.LENGTH_SHORT).show()
         } else {
@@ -53,6 +53,16 @@ class ShoeDetailsFragment : Fragment() {
 
             findNavController().navigate(R.id.action_shoeDetailsFragment_to_shoeFragment)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // to clear data that still found on views in second time
+        binding.txtName.setText("")
+        binding.txtSize.setText("")
+        binding.txtCompany.setText("")
+        binding.txtDesc.setText("")
+
     }
 
 }

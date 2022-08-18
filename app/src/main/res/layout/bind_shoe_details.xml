@@ -146,7 +146,7 @@
                     style="@style/edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:imeOptions="actionNext"
+                    android:imeOptions="actionDone"
                     android:maxLines="1"
                     android:text="@={shoe_model.shoeCompany}"
                     android:textColor="@color/black"

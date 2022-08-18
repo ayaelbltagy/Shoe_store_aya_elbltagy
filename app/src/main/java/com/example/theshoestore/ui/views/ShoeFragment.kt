@@ -96,10 +96,22 @@ class ShoeFragment : Fragment() {
         if(id == R.id.menu_item){
             if (!helper.getEmail().equals("") || !helper.getEmail().equals(null)) {
                 helper.setEmail("")
-                findNavController().navigate(R.id.action_shoeFragment_to_loginFragment)
+                findNavController().navigate(R.id.action_shoeFragment_to_loginView2)
 
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+    override fun onResume() {
+        super.onResume()
+        // to handle back button press
+        requireView().isFocusableInTouchMode = true
+        requireView().requestFocus()
+        requireView().setOnKeyListener { v: View?, keyCode: Int, event: KeyEvent ->
+            activity?.finish()
+            false
+        }
+
+
     }
 }
