@@ -31,16 +31,8 @@ class WelcomeFragment : Fragment() {
         val bundle = WelcomeFragmentArgs.fromBundle(requireArguments())
         binding.welcomeTxt.setText("Hello:"+" "+bundle.userName)
         binding.btnNext.setOnClickListener{ view ->
-            view.findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToInstructionsFragment())
+            view.findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToInstructionsView())
         }
 
     }
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        super.onCreateOptionsMenu(menu, inflater)
-//        inflater.inflate(R.menu.menu, menu)
-//    }
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
-//                || super.onOptionsItemSelected(item)
-//    }
 }

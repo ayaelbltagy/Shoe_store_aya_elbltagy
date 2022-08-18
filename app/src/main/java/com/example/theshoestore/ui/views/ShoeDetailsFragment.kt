@@ -8,16 +8,15 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.theshoestore.ShoeModel
 import com.example.theshoestore.R
-import com.example.theshoestore.databinding.FragmentShoeDetailsViewBinding
+import com.example.theshoestore.databinding.BindShoeDetailsBinding
 import com.example.theshoestore.viewModels.ShoeViewModel
 
 
 class ShoeDetailsFragment : Fragment() {
 
-    private lateinit var binding: FragmentShoeDetailsViewBinding
     private lateinit var shoeViewModel: ShoeViewModel
+    private lateinit var binding: BindShoeDetailsBinding
 
 
     override fun onCreateView(
@@ -25,9 +24,10 @@ class ShoeDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentShoeDetailsViewBinding.inflate(inflater, container, false)
-        binding.shoeModel = ShoeModel()
+        binding = BindShoeDetailsBinding.inflate(inflater, container, false)
         shoeViewModel = ViewModelProvider(requireActivity())[ShoeViewModel::class.java]
+        binding.shoeModel = shoeViewModel
+        binding.lifecycleOwner = this
         binding.btnCancel.setOnClickListener {
             findNavController().navigateUp()
         }
@@ -40,19 +40,29 @@ class ShoeDetailsFragment : Fragment() {
 
     private fun getDataFromView() {
 
-        val bindingData = binding.shoeModel
-        val shoeName =  bindingData?.shoeName.toString()
-        val shoeCompany = bindingData?.shoeCompany.toString()
-        val shoeDescription = bindingData?.shoeDescription.toString()
-        val shoeSize = bindingData?.shoeSize.toString()
-        if (shoeName.equals("") || shoeSize.equals("") || shoeCompany.equals("") || shoeDescription.equals("")) {
+        if (binding.txtName.text.toString().equals("") || binding.txtSize.text.toString()
+                .equals("") || binding.txtCompany.text.toString()
+                .equals("") || binding.txtDesc.text.toString().equals("")
+        ) {
 
             Toast.makeText(context, "Please Fill The Empty Fields", Toast.LENGTH_SHORT).show()
         } else {
+            shoeViewModel.onSave()
+
             Toast.makeText(context, "shoe added successfully", Toast.LENGTH_SHORT).show()
-            shoeViewModel.onSave(shoeName, shoeSize, shoeCompany, shoeDescription)
+
             findNavController().navigate(R.id.action_shoeDetailsFragment_to_shoeFragment)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // to clear data that still found on views in second time
+        binding.txtName.setText("")
+        binding.txtSize.setText("")
+        binding.txtCompany.setText("")
+        binding.txtDesc.setText("")
+
     }
 
 }

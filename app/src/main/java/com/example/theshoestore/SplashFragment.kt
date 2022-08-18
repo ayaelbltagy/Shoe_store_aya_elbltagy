@@ -36,7 +36,7 @@ class SplashFragment : Fragment() {
         var helper = PreferenceHelper(activity)
 
         if (helper.getEmail().equals("") || helper.getEmail() == null) {
-            view.findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToLoginFragment())
+            view.findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToLoginView())
 
         } else {
             view.findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToShoeFragment())

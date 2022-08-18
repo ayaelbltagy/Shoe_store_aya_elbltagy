@@ -5,7 +5,7 @@
 
         <variable
             name="shoe_model"
-            type="com.example.theshoestore.ShoeModel" />
+            type="com.example.theshoestore.viewModels.ShoeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,6 +43,7 @@
 
 
                 <EditText
+                    android:id="@+id/txt_name"
                     style="@style/edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -75,6 +76,7 @@
                     android:textSize="13sp" />
 
                 <EditText
+                    android:id="@+id/txt_size"
                     style="@style/edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -107,6 +109,7 @@
                     android:textSize="13sp" />
 
                 <EditText
+                    android:id="@+id/txt_desc"
                     style="@style/edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -139,10 +142,11 @@
                     android:textSize="13sp" />
 
                 <EditText
+                    android:id="@+id/txt_company"
                     style="@style/edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:imeOptions="actionNext"
+                    android:imeOptions="actionDone"
                     android:maxLines="1"
                     android:text="@={shoe_model.shoeCompany}"
                     android:textColor="@color/black"
