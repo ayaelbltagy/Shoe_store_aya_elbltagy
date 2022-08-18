@@ -36,6 +36,7 @@ class ShoeFragment : Fragment(), MenuProvider {
         binding = FragmentShoeBinding.inflate(inflater, container, false)
         // object from view model
         shoeViewModel = ViewModelProvider(requireActivity())[ShoeViewModel::class.java]
+       // binding.lifecycleOwner = this
         shoeViewModel.dataShoeList.observe(viewLifecycleOwner) { item ->
             shoeListView(item)
         }
@@ -71,7 +72,7 @@ class ShoeFragment : Fragment(), MenuProvider {
 
         }
     }
-    
+
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         // Add menu items here
         menuInflater.inflate(R.menu.menu, menu)

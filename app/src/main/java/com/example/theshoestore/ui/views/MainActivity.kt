@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity() {
         if (!helper.getEmail().equals("") || !helper.getEmail().equals(null)) {
             helper.setEmail("")
             Toast.makeText(this, "you logged out! ... see you soon", Toast.LENGTH_LONG).show()
+
         }
 
     }
