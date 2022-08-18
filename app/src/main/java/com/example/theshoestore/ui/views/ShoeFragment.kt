@@ -71,8 +71,7 @@ class ShoeFragment : Fragment(), MenuProvider {
 
         }
     }
-
-
+    
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         // Add menu items here
         menuInflater.inflate(R.menu.menu, menu)
