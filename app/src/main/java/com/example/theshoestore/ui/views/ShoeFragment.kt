@@ -20,18 +20,21 @@ import android.view.MenuInflater
 import androidx.core.view.MenuHost
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
+import com.example.theshoestore.helper.PreferenceHelper
 
 
-class ShoeFragment : Fragment(), MenuProvider {
+class ShoeFragment : Fragment() {
 
     private lateinit var shoeViewModel: ShoeViewModel
     private lateinit var binding: FragmentShoeBinding
-
+    private lateinit var helper: PreferenceHelper
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        helper = PreferenceHelper(activity)
         // Inflate the layout for this fragment
         binding = FragmentShoeBinding.inflate(inflater, container, false)
         // object from view model
@@ -53,6 +56,7 @@ class ShoeFragment : Fragment(), MenuProvider {
         return binding.root
     }
 
+
     private fun shoeListView(item: List<ShoeModel>) {
         item.forEach {
 
@@ -71,38 +75,31 @@ class ShoeFragment : Fragment(), MenuProvider {
             binding.shoeListLinearLayout.addView(bindingView.root)
 
         }
+
     }
 
-    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        // Add menu items here
-        menuInflater.inflate(R.menu.menu, menu)
+    // enable options menu in this fragment
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
+        super.onCreate(savedInstanceState)
     }
 
-    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        return when (menuItem.itemId) {
-            R.id.menu_item -> {
-                Toast.makeText(
-                    activity, "hello", Toast.LENGTH_LONG
-                ).show()
-                true
+    // inflate the menu
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater!!.inflate(R.menu.menu,menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    // handle menu item selection
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item!!.itemId
+        if(id == R.id.menu_item){
+            if (!helper.getEmail().equals("") || !helper.getEmail().equals(null)) {
+                helper.setEmail("")
+                findNavController().navigate(R.id.action_shoeFragment_to_loginFragment)
+
             }
-            else -> false
         }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        // The usage of an interface lets you inject your own implementation
-//        val menuHost: MenuHost = requireHost() as MenuHost
-//        menuHost.addMenuProvider(object : MenuProvider {
-//            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-//                // Add menu items here
-//                menuInflater.inflate(R.menu.menu, menu)
-//            }
-//            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-//                view.findNavController().navigate(R.id.action_shoeFragment_to_loginFragment)
-//                return true
-//            }
-//        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        return super.onOptionsItemSelected(item)
     }
 }
